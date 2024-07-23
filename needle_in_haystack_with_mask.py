@@ -223,9 +223,6 @@ class LLMNeedleHaystackTester:
             if self.mask_topk > 0:
                 print(f"masking out top {self.mask_topk} retrieval heads")
             else:
-                random_block_list = stable_block_list.copy()
-                random.shuffle(random_block_list)
-                self.block_list = [[int(ll) for ll in l[0].split("-")] for l in random_block_list][:100]
                 print(f"masking out random {-self.mask_topk}  heads")
         else:
             self.block_list = []
@@ -277,7 +274,6 @@ class LLMNeedleHaystackTester:
         past_kv = q_outputs.past_key_values
         for step_i in range(decode_len):
             inp = inp.view(1, 1)
-            print("block list in decode", block_list)
             outputs = self.model_to_test(input_ids=inp, past_key_values=past_kv, use_cache=True, \
                  output_attentions=False, block_list=block_list)
             past_kv = outputs.past_key_values

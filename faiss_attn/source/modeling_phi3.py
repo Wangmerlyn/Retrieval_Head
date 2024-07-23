@@ -1262,7 +1262,7 @@ class Phi3Model(Phi3PreTrainedModel):
             kwargs = {"block_list": block_list}
         else: 
             kwargs={}
-        print("for block list debugging ", block_list)
+        #print(blocklist)
 
         for decoder_layer in self.layers:
             if output_hidden_states:
